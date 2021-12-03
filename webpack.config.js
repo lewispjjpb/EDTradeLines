@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
-  entry: path.join(__dirname, '../client/src/app.jsx'),
+  entry: path.join(__dirname, './client/src/app.jsx'),
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'

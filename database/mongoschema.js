@@ -1,10 +1,14 @@
 const mongoose = require('mongoose')
-var sample = require('./sample.json')
+const fs = require('fs');
+// const zlib = require('zlib')
+var sample = require('./sample.json');
+const JSONStream = require('JSONStream');
+const split = require('split')
 
-sample = sample['message']
+// line = sample['message']
 // console.log(sample['commodities'])
 
-mongoose.connect('mongodb://localhost:27017/market')
+mongoose.connect('mongodb://localhost:27017/market');
 
 
 // main().catch(err => console.log(err))
@@ -30,39 +34,59 @@ const marketSchema = new mongoose.Schema ({
   commodities: [commodSchema]
 })
 
-
-var station = {
-  stationName: sample['stationName'],
-  stationId: sample['marketId'],
-  date: sample['timestamp'],
-  systemName: sample['systemName'],
-  commodities: []
-}
-for (var i = 0; i < sample['commodities'].length; i++) {
-  let thisCommodity = {
-    buyPrice: sample['commodities'][i]['buyPrice'],
-    demand: sample['commodities'][i]['demand'],
-    demandBracket: sample['commodities'][i]['demandBracket'],
-    meanPrice: sample['commodities'][i]['meanPrice'],
-    name: sample['commodities'][i]['name'],
-    sellPrice: sample['commodities'][i]['sellPrice'],
-    statusFlags: sample['commodities'][i]['statusFlags'],
-    stock: sample['commodities'][i]['stock'],
-    stockBracket: sample['commodities'][i]['stockBracket']
+const makeStation = (line) => {
+  // console.log(line)
+  var station = {
+    stationName: line['stationName'],
+    stationId: line['marketId'],
+    date: line['timestamp'],
+    systemName: line['systemName'],
+    commodities: []
   }
-  station['commodities'].push(thisCommodity)
+  for (var i = 0; i < line['commodities'].length; i++) {
+    let thisCommodity = {
+      buyPrice: line['commodities'][i]['buyPrice'],
+      demand: line['commodities'][i]['demand'],
+      demandBracket: line['commodities'][i]['demandBracket'],
+      meanPrice: line['commodities'][i]['meanPrice'],
+      name: line['commodities'][i]['name'],
+      sellPrice: line['commodities'][i]['sellPrice'],
+      statusFlags: line['commodities'][i]['statusFlags'],
+      stock: line['commodities'][i]['stock'],
+      stockBracket: line['commodities'][i]['stockBracket']
+    }
+    station['commodities'].push(thisCommodity)
+  }
+
+
+  const data = new marketModel(station)
+  data.save()
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
+// makeStation(line)
 
-const data = new marketModel(station)
+// var populate = () => {  //function for seeding
+//   var stream = fs.createReadStream('')
+//     .pipe(split())
+//     .on('data', function(line) {
+//       const parsed = JSON.parse(line)
 
-// data.save()
+//       makeStation(parsed.message)
+//     })
+// }
+// populate() //database make switch
 
 
 module.exports = {
-  getMarket: function() {
+  getMarket: function(stationId) {
+    const answer = marketModel.find({"stationId": stationId});
+    return answer;
+  },
+
+  getStations: function() {
     const answer = marketModel.find();
+
     return answer;
   }
 }
