@@ -4,7 +4,9 @@
   "description": "ED supply/demand pricing",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon ./server/index.js",
+    "build": "webpack --mode=development -d source-map --watch"
   },
   "repository": {
     "type": "git",
@@ -21,13 +23,19 @@
   },
   "homepage": "https://github.com/lewispjjpb/EDTradeLines#readme",
   "dependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
     "axios": "^0.24.0",
     "babel": "^6.23.0",
+    "babel-loader": "^8.2.3",
     "express": "^4.17.1",
     "node": "^17.1.0",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "webpack": "^5.64.4",
-    "zeromq": "^5.2.8"
+    "webpack-cli": "^4.9.1",
+    "zeromq": "^5.2.8",
+    "zlib": "^1.0.5"
   }
 }
