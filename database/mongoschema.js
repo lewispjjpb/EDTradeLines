@@ -85,8 +85,7 @@ module.exports = {
   },
 
   getStations: function() {
-    const answer = marketModel.find();
-
+    const answer = marketModel.find({}, {"stationId":1, "stationName":1, "_id":0  });
     return answer;
   }
 }
