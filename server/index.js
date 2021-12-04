@@ -27,14 +27,16 @@ app.get('/stations', (req, res) => {
   db.getStations()
     .then(results => {
       console.log('got response')
-      let stationSum = [];
+      let stationSum = {};
       for (let i = 0; i < results.length; i++) {
         let stationInfo = {};
         let oneStation = results[i]
-        stationInfo['stationName'] = oneStation['stationName'];
         stationInfo['stationId'] = oneStation['stationId'];
-        stationSum.push(stationInfo)
+        stationInfo['date'] = oneStation['date'];
+        stationInfo['system'] = oneStation['systemName']
+        stationSum[oneStation['stationName']] = stationInfo
       };
+      // console.log(stationSum)
       return stationSum
     })
     .then(stations => res.status(200).send(stations))

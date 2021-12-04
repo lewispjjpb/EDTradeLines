@@ -78,6 +78,8 @@ const marketModel = mongoose.model('marketData', marketSchema);
 // populate() //database make switch
 
 
+//'ify-loader'
+
 module.exports = {
   getMarket: function(stationId) {
     const answer = marketModel.find({"stationId": stationId});
@@ -85,7 +87,7 @@ module.exports = {
   },
 
   getStations: function() {
-    const answer = marketModel.find({}, {"stationId":1, "stationName":1, "_id":0  });
+    const answer = marketModel.find({}, {"stationId":1, "stationName":1, "date":1, "systemName":1, "_id":0  });
     return answer;
   }
 }

@@ -35,7 +35,7 @@ class SellGraph extends React.Component {
         log_x: true,
         log_y: true,
         xaxis: {title: "total supply"},
-        yaxis: {title: "total potential profit"}
+        yaxis: {title: "total cost to buy"}
       }
       this.setState({graphData: {'trace': trace, 'layout': layout}})
     }
