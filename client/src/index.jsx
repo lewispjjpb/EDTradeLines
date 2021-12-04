@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import BuyGraph from './buyGraph.jsx'
 
 class Main extends React.Component {
   constructor(props) {
@@ -8,23 +9,34 @@ class Main extends React.Component {
       currentStation: {},
       stationList: []
     }
-    this.getStation = this.getStation.bind(this)
+    this.getStation = this.getStation.bind(this);
+    this.populationStationList = this.populationStationList.bind(this)
   }
 
   componentDidMount() {
     this.getStation();
+    // this.populationStationList();
   }
 
   getStation() {
     axios.get('/market/3223925504')
-      .then(response => this.setState({'currentStation': response.data}))
+      .then(response => this.setState({'currentStation': response.data[0]}))
       .then(console.log('station loaded'))
       .catch('error?')
   }
 
+  populationStationList() {
+    axios.get('/stations')
+      .then (response => this.setState({stationList: response.data}))
+  }
+
   render() {
     return (
-    <div>hello react component world</div>
+      <div>
+        <div>{this.state.currentStation.stationName}</div>
+        <div><BuyGraph data={this.state.currentStation}/></div>
+        <div>sellgraph</div>
+      </div>
     )
   }
 }
