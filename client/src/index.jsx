@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import BuyGraph from './buyGraph.jsx'
+import SellGraph from './sellGraph.jsx'
 
 class Main extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class Main extends React.Component {
       <div>
         <div>{this.state.currentStation.stationName}</div>
         <div><BuyGraph data={this.state.currentStation}/></div>
-        <div>sellgraph</div>
+        <div><SellGraph data={this.state.currentStation}/></div>
       </div>
     )
   }

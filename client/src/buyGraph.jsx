@@ -1,6 +1,4 @@
 import React from 'react';
-import d3 from 'd3';
-import {select} from "d3-selection";
 import ReactDOM from 'react-dom';
 import Plot from 'react-plotly.js';
 
@@ -11,13 +9,12 @@ class BuyGraph extends React.Component {
     super(props);
     this.state = {graphData: {}};
   }
-  // console.log(props.data.commodities)
-  // const data = props.data.commodities
+
 
   componentDidUpdate(prev) {
-    // console.log(this.props.data.commodities)
+
     if (prev.data.commodities !== this.props.data.commodities) {
-      // console.log(this.props.data.commodities)
+
       let data = this.props.data.commodities;
       let xData = [];
       let yData = [];
@@ -55,50 +52,5 @@ class BuyGraph extends React.Component {
   }
 }
 
-
-
-var objArr = [
-  {
-      "buyPrice": 0,
-      "demand": 1416,
-      "demandBracket": 3,
-      "meanPrice": 3105,
-      "name": "agronomictreatment",
-      "sellPrice": 3681,
-      "statusFlags": [
-          "Consumer"
-      ],
-      "stock": 0,
-      "stockBracket": 0,
-      "_id": "61aa7f4baf7f87e2907f1cd2"
-  },
-  {
-      "buyPrice": 85,
-      "demand": 1,
-      "demandBracket": 0,
-      "meanPrice": 113,
-      "name": "hydrogenfuel",
-      "sellPrice": 80,
-      "statusFlags": [
-          "Producer"
-      ],
-      "stock": 1461358,
-      "stockBracket": 3,
-      "_id": "61aa7f4baf7f87e2907f1cd3"
-  },
-  {
-      "buyPrice": 0,
-      "demand": 4838259,
-      "demandBracket": 3,
-      "meanPrice": 3160,
-      "name": "hydrogenperoxide",
-      "sellPrice": 3012,
-      "statusFlags": [
-          "Consumer"
-      ],
-      "stock": 0,
-      "stockBracket": 0,
-      "_id": "61aa7f4baf7f87e2907f1cd4"
-  }]
 
 export default BuyGraph
