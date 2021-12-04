@@ -42,19 +42,18 @@ class Main extends React.Component {
 
   updateStation(e) {
     e.preventDefault();
-    console.log(this.state.stationList[this.state.queueStation])
     let id = this.state.stationList[this.state.queueStation]['stationId']
-    // console.log(id)
     this.getStation(id)
   }
 
   render() {
     const simpleList = Object.keys(this.state.stationList).sort()
+    console.log('numstations: ', simpleList.length)
     return (
       <div className="container">
         <div className="header">
-          <div>Current station: {this.state.currentStation.stationName}
-          ||| Market data age: {format(this.state.currentStation.date)} </div>
+          <div>Current station: <b>{this.state.currentStation.stationName}   </b>
+              ||| Market data age: {format(this.state.currentStation.date)} </div>
           <form onSubmit={this.updateStation}>
             <label>
               Select station:
@@ -62,7 +61,7 @@ class Main extends React.Component {
                 {simpleList.map(item => <option value={item}>{item}</option>)}
               </select>
             </label>
-            <input type="submit" value="Get station data"/>
+            <input type="submit" value="Get station data" className="get"/>
           </form>
         </div>
 
@@ -72,7 +71,7 @@ class Main extends React.Component {
         </div>
 
         <div className="footer">
-          Hey!  I'm looking for work as a software developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/">LinkedIn profile</a>.
+          <em>Hey!  I'm looking for work as a software developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn profile</a>.</em>
         </div>
 
       </div>

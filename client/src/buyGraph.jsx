@@ -19,19 +19,28 @@ class BuyGraph extends React.Component {
       let xData = [];
       let yData = [];
       let zData = [];
+      let aData = [];
       for (var i = 0; i < data.length; i++) {
         xData.push(data[i]['demand'])
         yData.push(data[i]['demand'] * data[i]['sellPrice'])
-        zData.push(data[i]['name'])
+        zData.push([data[i]['name'], data[i]['sellPrice']])
       }
       let trace = [{
           x: xData,
           y: yData,
           type: 'scatter',
           mode: 'markers',
-          text: zData
+          marker: {color: '#ff9030'},
+          text: zData,
+          hovertemplate: '<i>Commodity:</i> %{text[0]} <br>'  +
+          'Total demand: %{x} <br>' +
+          'Unit price: %{text[1]} <br>' +
+          'Total profit potential: %{y}',
       }]
       let layout = {
+        plot_bgcolor: '#2b2a29',
+        paper_bgcolor: '#2b2a29',
+        font: {color: '#ff9030'},
         height: 500,
         width: 500,
         responsive: true,

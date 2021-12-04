@@ -22,16 +22,24 @@ class SellGraph extends React.Component {
       for (var i = 0; i < data.length; i++) {
         xData.push(data[i]['stock'])
         yData.push(data[i]['stock'] * data[i]['buyPrice'])
-        zData.push(data[i]['name'])
+        zData.push([data[i]['name'], data[i]['buyPrice']])
       }
       let trace = [{
           x: xData,
           y: yData,
           type: 'scatter',
           mode: 'markers',
-          text: zData
+          marker: {color: '#ff9030'},
+          text: zData,
+          hovertemplate: '<i>Commodity:</i> %{text[0]} <br>'  +
+          'Total supply: %{x} <br>' +
+          'Unit price: %{text[1]} <br>' +
+          'Cost to purchase stock: %{y}',
       }]
       let layout = {
+        plot_bgcolor: '#2b2a29',
+        paper_bgcolor: '#2b2a29',
+        font: {color: '#ff9030'},
         height: 500,
         width: 500,
         responsive: true,

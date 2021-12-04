@@ -1,5 +1,9 @@
 .container {
   display: grid;
+  text-transform: uppercase;
+  font-family: din-2014,sans-serif;
+  color: #ff9030;
+  background-color: #2b2a29;
   grid-template-columns: 1fr;
     /* grid-template-rows: 30px 1fr 30px; */
   grid-template-areas:
@@ -22,8 +26,10 @@
 
 .main {
   border: solid;
+  display:inline;
   text-align: center;
-  text-justify: top;
+  text-anchor: middle;
+  justify-content: center;
   margin: 5px;
   display: flex;
   flex-shrink: 5;
@@ -39,4 +45,14 @@
   /* grid-row: 5; */
   grid-area: footer;
   padding: 3px;
+  color: red;
+}
+
+a {
+  color: whitesmoke
+}
+
+.get {
+  background-color: #2b2a29;
+  color: whitesmoke
 }
