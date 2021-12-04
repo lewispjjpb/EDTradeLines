@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import BuyGraph from './buyGraph.jsx'
-import SellGraph from './sellGraph.jsx'
+import BuyGraph from './buyGraph.jsx';
+import SellGraph from './sellGraph.jsx';
+import { format } from 'timeago.js';
 
 class Main extends React.Component {
   constructor(props) {
@@ -52,8 +53,9 @@ class Main extends React.Component {
     return (
       <div className="container">
         <div className="header">
-          <div>Current station: {this.state.currentStation.stationName}</div>
-          <form onSubmit={this.updateStation} className="header">
+          <div>Current station: {this.state.currentStation.stationName}
+          ||| Market data age: {format(this.state.currentStation.date)} </div>
+          <form onSubmit={this.updateStation}>
             <label>
               Select station:
               <select type="text" value={this.state.queueStation} onChange={this.setStation}>

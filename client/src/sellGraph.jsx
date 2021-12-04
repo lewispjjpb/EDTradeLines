@@ -32,6 +32,11 @@ class SellGraph extends React.Component {
           text: zData
       }]
       let layout = {
+        height: 500,
+        width: 500,
+        responsive: true,
+        autosize: true,
+        useResizeHandler: true,
         log_x: true,
         log_y: true,
         xaxis: {title: "total supply"},
