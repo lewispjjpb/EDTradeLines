@@ -14,7 +14,8 @@
   "scripts": {
     "test": "test",
     "start": "nodemon ./server/index.js",
-    "build": "webpack --mode=development -d source-map --watch"
+    "react-dev": "webpack --mode=development -d source-map --watch",
+    "build": "webpack --mode=development -d source-map"
   },
   "repository": {
     "type": "git",

@@ -26,22 +26,29 @@ class BuyGraph extends React.Component {
         zData.push([data[i]['name'], data[i]['sellPrice']])
       }
       let trace = [{
-          x: xData,
-          y: yData,
-          type: 'scatter',
-          mode: 'markers',
-          marker: {color: '#ff9030'},
-          text: zData,
-          hovertemplate: '<i>Commodity:</i> %{text[0]} <br>'  +
-          'Total demand: %{x} <br>' +
-          'Unit price: %{text[1]} <br>' +
-          'Total profit potential: %{y}',
+        x: xData,
+        y: yData,
+        type: 'scatter',
+        mode: 'markers',
+        marker: {
+          color: '#ff9030',
+        },
+        text: zData,
+        hoverformat: '~s',
+        hovertemplate: '<i>Commodity:</i> %{text[0]} <br>'  +
+        'Total demand: %{x} <br>' +
+        'Unit price: %{text[1]} <br>' +
+        'Total profit potential: %{y}',
       }]
       let layout = {
+        margin: {
+          t: 40,
+          b: 50
+        },
         plot_bgcolor: '#2b2a29',
         paper_bgcolor: '#2b2a29',
         font: {color: '#ff9030'},
-        height: 500,
+        height: 410,
         width: 500,
         responsive: true,
         autosize: true,
@@ -50,6 +57,7 @@ class BuyGraph extends React.Component {
         log_y: true,
         xaxis: {title: "total demand"},
         yaxis: {title: "total potential profit"},
+        title: 'Sell to station'
       }
       this.setState({graphData: {'trace': trace, 'layout': layout}})
     }
@@ -59,7 +67,6 @@ class BuyGraph extends React.Component {
   render() {
     return (
     <div>
-      <div className="action">Sell to station:</div>
       <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
     </div>
     )

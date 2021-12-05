@@ -37,10 +37,14 @@ class SellGraph extends React.Component {
           'Cost to purchase stock: %{y}',
       }]
       let layout = {
+        margin: {
+          t: 40,
+          b: 50
+        },
         plot_bgcolor: '#2b2a29',
         paper_bgcolor: '#2b2a29',
         font: {color: '#ff9030'},
-        height: 500,
+        height: 410,
         width: 500,
         responsive: true,
         autosize: true,
@@ -48,7 +52,8 @@ class SellGraph extends React.Component {
         log_x: true,
         log_y: true,
         xaxis: {title: "total supply"},
-        yaxis: {title: "total cost to buy"}
+        yaxis: {title: "total cost to buy"},
+        title: 'Buy from station'
       }
       this.setState({graphData: {'trace': trace, 'layout': layout}})
     }
@@ -58,7 +63,6 @@ class SellGraph extends React.Component {
   render() {
     return (
     <div>
-      <div className="action">Buy from station:</div>
       <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
     </div>
     )
