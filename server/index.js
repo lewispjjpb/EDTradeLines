@@ -22,6 +22,10 @@ app.get('/market/:stationId', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+app.post('/newstation', (req, res) => {
+  
+})
+
 app.get('/stations', (req, res) => {
   console.log('getting all stations')
   db.getStations()

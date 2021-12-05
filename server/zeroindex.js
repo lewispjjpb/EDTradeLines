@@ -1,9 +1,10 @@
 const zlib = require('zlib');
 const zmq = require('zeromq');
+const model = require('../database/mongoschema.js')
 
 const SOURCE_URL = 'tcp://eddn.edcd.io:9500';
 
-async function stuff() {
+async function feedMe() {
   // console.log(zmq)
   const sock = zmq.socket("sub");
 
@@ -15,17 +16,15 @@ async function stuff() {
     const msg = JSON.parse(zlib.inflateSync(topic))
     if (msg.$schemaRef === 'https://eddn.edcd.io/schemas/commodity/3') {
       console.log(
-        "received a message related to:",
-        // msg.message,
-        "containing schema:",
-        msg.header
+        "Received station update:",
+        msg.message.stationName,
       );
-      return msg.message;
+      model.makeStation(msg.message);
       // break;
     }
   });
 }
 
-module.exports.stuff = stuff;
+module.exports.feedMe = feedMe;
 
-// stuff();
+feedMe();

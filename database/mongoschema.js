@@ -59,12 +59,22 @@ const makeStation = (line) => {
   }
 
 
-  const data = new marketModel(station)
-  data.save()
+  const findStationAndUpdate = (data) => {
+    const query = {'stationId': data.stationId}
+    marketModel.findOneAndUpdate(query, data, {'upsert': true, useFindAndModify: false}, function(err, doc) {
+      if (err) return {error: err};
+      return (`${data.stationName} saved.`);
+    })
+  }
+  findStationAndUpdate(station)
+
+  // const data = new marketModel(station)
+  // data.save()
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
 // makeStation(line)
+
 
 // var populate = () => {  //function for seeding
 //   var stream = fs.createReadStream('')
@@ -80,6 +90,7 @@ const marketModel = mongoose.model('marketData', marketSchema);
 
 //'ify-loader'
 
+
 module.exports = {
   getMarket: function(stationId) {
     const answer = marketModel.find({"stationId": stationId});
@@ -89,5 +100,11 @@ module.exports = {
   getStations: function() {
     const answer = marketModel.find({}, {"stationId":1, "stationName":1, "date":1, "systemName":1, "_id":0  });
     return answer;
-  }
+  },
+
+  updateStation: function(entry) {
+    makeStation(entry)
+  },
+
+  makeStation: makeStation
 }

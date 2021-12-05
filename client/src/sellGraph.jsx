@@ -58,7 +58,7 @@ class SellGraph extends React.Component {
   render() {
     return (
     <div>
-      Buy from station:
+      <div className="action">Buy from station:</div>
       <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
     </div>
     )
