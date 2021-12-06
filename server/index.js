@@ -1,18 +1,22 @@
 const express = require('express')
 const zmq = require('./zeroindex.js')
 const path = require('path')
-const db = require('../database/mongoschema.js')
+const db = require('../database/mongoschema.js');
+const gzip = require('gzip');
+const compression = require('compression');
 
 const app = express()
 const port = 3001
 
 
+
+
+
+
+
+app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 
-
-app.get('/', (req, res) => {
-  res.status(200).send('hello server world')
-})
 
 app.get('/market/:stationId', (req, res) => {
   console.log(req.params)
@@ -23,7 +27,7 @@ app.get('/market/:stationId', (req, res) => {
 })
 
 app.post('/newstation', (req, res) => {
-  
+
 })
 
 app.get('/stations', (req, res) => {

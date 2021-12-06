@@ -1,17 +1,12 @@
 const mongoose = require('mongoose')
 const fs = require('fs');
-// const zlib = require('zlib')
 var sample = require('./sample.json');
 const JSONStream = require('JSONStream');
 const split = require('split')
 
-// line = sample['message']
-// console.log(sample['commodities'])
 
 mongoose.connect('mongodb://localhost:27017/market');
 
-
-// main().catch(err => console.log(err))
 const commodSchema = new mongoose.Schema(
   {
     buyPrice: Number,
@@ -35,7 +30,6 @@ const marketSchema = new mongoose.Schema ({
 })
 
 const makeStation = (line) => {
-  // console.log(line)
   var station = {
     stationName: line['stationName'],
     stationId: line['marketId'],
@@ -61,6 +55,7 @@ const makeStation = (line) => {
 
   const findStationAndUpdate = (data) => {
     const query = {'stationId': (data.stationId).toString()}
+    console.log('making: ', query)
     marketModel.findOneAndUpdate(query, data, {'upsert': true, useFindAndModify: false}, function(err, doc) {
       if (err) return {error: err};
       return (`${data.stationName} saved.`);
@@ -68,27 +63,10 @@ const makeStation = (line) => {
   }
   findStationAndUpdate(station)
 
-  // const data = new marketModel(station)
-  // data.save()
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
-// makeStation(line)
 
-
-// var populate = () => {  //function for seeding
-//   var stream = fs.createReadStream('')
-//     .pipe(split())
-//     .on('data', function(line) {
-//       const parsed = JSON.parse(line)
-
-//       makeStation(parsed.message)
-//     })
-// }
-// populate() //database make switch
-
-
-//'ify-loader'
 
 
 module.exports = {

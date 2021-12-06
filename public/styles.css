@@ -22,8 +22,6 @@ body {
   border: solid;
   margin: 5px;
   padding: 3px;
-  /* grid-row: 1; */
-  /* grid-column-start: 1; */
   grid-area: header;
 }
 
@@ -46,7 +44,6 @@ body {
   justify-self: stretch;
   text-align: center;
   margin: 5px;
-  /* grid-row: 5; */
   grid-area: footer;
   padding: 3px;
   color: red;
