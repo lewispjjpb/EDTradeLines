@@ -60,7 +60,7 @@ const makeStation = (line) => {
 
 
   const findStationAndUpdate = (data) => {
-    const query = {'stationId': data.stationId}
+    const query = {'stationId': (data.stationId).toString()}
     marketModel.findOneAndUpdate(query, data, {'upsert': true, useFindAndModify: false}, function(err, doc) {
       if (err) return {error: err};
       return (`${data.stationName} saved.`);
