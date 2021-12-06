@@ -30,7 +30,6 @@ const marketSchema = new mongoose.Schema ({
 })
 
 const makeStation = (line) => {
-  // console.log(line)
   var station = {
     stationName: line['stationName'],
     stationId: line['marketId'],
@@ -64,8 +63,6 @@ const makeStation = (line) => {
   }
   findStationAndUpdate(station)
 
-  // const data = new marketModel(station)
-  // data.save()
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
