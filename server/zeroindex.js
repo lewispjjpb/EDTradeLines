@@ -5,7 +5,6 @@ const model = require('../database/mongoschema.js')
 const SOURCE_URL = 'tcp://eddn.edcd.io:9500';
 
 async function feedMe() {
-  // console.log(zmq)
   const sock = zmq.socket("sub");
 
   sock.connect(SOURCE_URL);
@@ -20,7 +19,6 @@ async function feedMe() {
         msg.message.stationName,
       );
       model.makeStation(msg.message);
-      // break;
     }
   });
 }

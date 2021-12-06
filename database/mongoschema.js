@@ -1,17 +1,12 @@
 const mongoose = require('mongoose')
 const fs = require('fs');
-// const zlib = require('zlib')
 var sample = require('./sample.json');
 const JSONStream = require('JSONStream');
 const split = require('split')
 
-// line = sample['message']
-// console.log(sample['commodities'])
 
 mongoose.connect('mongodb://localhost:27017/market');
 
-
-// main().catch(err => console.log(err))
 const commodSchema = new mongoose.Schema(
   {
     buyPrice: Number,
@@ -74,22 +69,7 @@ const makeStation = (line) => {
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
-// makeStation(line)
 
-
-// var populate = () => {  //function for seeding
-//   var stream = fs.createReadStream('')
-//     .pipe(split())
-//     .on('data', function(line) {
-//       const parsed = JSON.parse(line)
-
-//       makeStation(parsed.message)
-//     })
-// }
-// populate() //database make switch
-
-
-//'ify-loader'
 
 
 module.exports = {
