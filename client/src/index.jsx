@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import axios from 'axios';
 import BuyGraph from './buyGraph.jsx';
 import SellGraph from './sellGraph.jsx';

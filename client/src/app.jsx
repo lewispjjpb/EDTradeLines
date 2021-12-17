@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom'
-import Main from './index.jsx'
+const Main = React.lazy(() => import('./index.jsx'))
 
 
 ReactDOM.render(
-  <Main/>,
+  <Suspense fallback={<div>Loading...</div>}>
+    <Main/>
+  </Suspense>,
   document.getElementById('root')
 );

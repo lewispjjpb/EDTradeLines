@@ -48,7 +48,7 @@ app.get('/stations', (req, res) => {
       return stationSum
     })
     .then(stations => {
-      console.log(typeof(stations))
+      console.log('file size: ', stations.size)
       res.status(200).send(stations)})
     .catch(err => res.status(500).send(err))
 })
