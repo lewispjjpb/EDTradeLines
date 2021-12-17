@@ -4,18 +4,19 @@ const path = require('path')
 const db = require('../database/mongoschema.js');
 const gzip = require('gzip');
 const compression = require('compression');
+const serverTiming  = require('server-timing');
 
 const app = express()
 const port = 3001
 
 
 
-
-
-
-
+app.use(serverTiming ());
 app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
+
+// app.use('/', require('./routes/home.js'));
+// app.use(timings.end('routing'));
 
 
 app.get('/market/:stationId', (req, res) => {
@@ -30,11 +31,14 @@ app.post('/newstation', (req, res) => {
 
 })
 
+
 app.get('/stations', (req, res) => {
+  let start = Date.now();
   console.log('getting all stations')
+  res.setMetric('rec', (Date.now() - start), 'm. received');
   db.getStations()
     .then(results => {
-      console.log(typeof(results))
+      res.setMetric('db', (Date.now() - start), 'getting db');
       let stationSum = {};
       for (let i = 0; i < results.length; i++) {
         let stationInfo = {};
@@ -45,13 +49,17 @@ app.get('/stations', (req, res) => {
         stationSum[oneStation['stationName']] = stationInfo
       };
       // console.log(stationSum)
+      start = Date.now();
+      res.setMetric('server', (Date.now() - start), 'arr build');
       return stationSum
     })
     .then(stations => {
-      console.log('file size: ', stations.size)
-      res.status(200).send(stations)})
+      // res.header({'server-timing': 'db, server'});
+      res.status(200).send(stations)
+    })
     .catch(err => res.status(500).send(err))
 })
+
 
 app.listen(port, () => {
   console.log(`EDTradelines listening at http://localhost:${port}`)
