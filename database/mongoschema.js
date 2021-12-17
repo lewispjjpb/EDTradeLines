@@ -80,9 +80,5 @@ module.exports = {
     return answer;
   },
 
-  updateStation: function(entry) {
-    makeStation(entry)
-  },
-
   makeStation: makeStation
 }

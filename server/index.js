@@ -34,7 +34,7 @@ app.get('/stations', (req, res) => {
   console.log('getting all stations')
   db.getStations()
     .then(results => {
-      console.log('got response')
+      console.log(typeof(results))
       let stationSum = {};
       for (let i = 0; i < results.length; i++) {
         let stationInfo = {};
@@ -47,7 +47,9 @@ app.get('/stations', (req, res) => {
       // console.log(stationSum)
       return stationSum
     })
-    .then(stations => res.status(200).send(stations))
+    .then(stations => {
+      console.log(typeof(stations))
+      res.status(200).send(stations)})
     .catch(err => res.status(500).send(err))
 })
 
