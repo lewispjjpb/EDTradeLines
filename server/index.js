@@ -20,10 +20,14 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 app.get('/market/:stationId', (req, res) => {
+  let start = Date.now();
   console.log(req.params)
   const stationId = req.params.stationId
   db.getMarket(stationId)
-    .then(results => {res.status(200).send(results)})
+    .then(results => {
+      res.setMetric('db', (Date.now() - start), 'getting db');
+      res.status(200).send(results)
+    })
     .catch(err => res.status(500).send(err))
 })
 
@@ -39,6 +43,8 @@ app.get('/stations', (req, res) => {
   db.getStations()
     .then(results => {
       res.setMetric('db', (Date.now() - start), 'getting db');
+      console.log('waited for: ', (Date.now() - start))
+      start = Date.now();
       let stationSum = {};
       for (let i = 0; i < results.length; i++) {
         let stationInfo = {};
@@ -49,7 +55,6 @@ app.get('/stations', (req, res) => {
         stationSum[oneStation['stationName']] = stationInfo
       };
       // console.log(stationSum)
-      start = Date.now();
       res.setMetric('server', (Date.now() - start), 'arr build');
       return stationSum
     })

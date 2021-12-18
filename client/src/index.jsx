@@ -32,7 +32,10 @@ class Main extends React.Component {
 
   populationStationList() {
     axios.get('/stations')
-      .then (response => this.setState({stationList: response.data}))
+      .then (response => {
+        console.log('headers: ', response.headers)
+        this.setState({stationList: response.data})
+      })
   }
 
   setStation(e) {
@@ -57,9 +60,9 @@ class Main extends React.Component {
           <form onSubmit={this.updateStation}>
             <label>
               Select station:
-              <select type="text" value={this.state.queueStation} onChange={this.setStation}>
-                {simpleList.map(item => <option value={item}>{item}</option>)}
-              </select>
+              <input type="text" value={this.state.queueStation} onChange={this.setStation}>
+                {simpleList.find(element => element === this.state.queueStation )}
+              </input>
             </label>
             <input type="submit" value="Get station data" className="get"/>
           </form>
