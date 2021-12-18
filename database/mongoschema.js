@@ -70,8 +70,8 @@ const marketModel = mongoose.model('marketData', marketSchema);
 
 
 module.exports = {
-  getMarket: function(stationId) {
-    const answer = marketModel.find({"stationId": stationId});
+  getMarket: function(name) {
+    const answer = marketModel.find({"stationName": name});
     return answer;
   },
 

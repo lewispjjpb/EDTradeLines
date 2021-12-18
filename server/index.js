@@ -15,8 +15,7 @@ app.use(serverTiming ());
 app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// app.use('/', require('./routes/home.js'));
-// app.use(timings.end('routing'));
+var allStations = {}
 
 
 app.get('/market/:stationId', (req, res) => {
@@ -59,8 +58,8 @@ app.get('/stations', (req, res) => {
       return stationSum
     })
     .then(stations => {
-      // res.header({'server-timing': 'db, server'});
-      res.status(200).send(stations)
+      allStations = stations
+      res.status(200).send(Object.keys(stations).sort())
     })
     .catch(err => res.status(500).send(err))
 })

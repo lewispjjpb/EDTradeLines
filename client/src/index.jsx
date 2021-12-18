@@ -9,18 +9,18 @@ class Main extends React.Component {
     super(props);
     this.state = {
       currentStation: {},
-      stationList: {},
+      stationList: [],
       queueStation: ''
     }
     this.getStation = this.getStation.bind(this);
-    this.populationStationList = this.populationStationList.bind(this);
+    this.populateStationList = this.populateStationList.bind(this);
     this.setStation = this.setStation.bind(this);
     this.updateStation = this.updateStation.bind(this);
   }
 
   componentDidMount() {
-    this.getStation(3223925504);
-    this.populationStationList();
+    this.getStation('Abernathy City');
+    this.populateStationList();
   }
 
   getStation(stationId) {
@@ -30,7 +30,7 @@ class Main extends React.Component {
       .catch('error in getStation?')
   }
 
-  populationStationList() {
+  populateStationList() {
     axios.get('/stations')
       .then (response => {
         console.log('headers: ', response.headers)
@@ -45,13 +45,18 @@ class Main extends React.Component {
 
   updateStation(e) {
     e.preventDefault();
-    let id = this.state.stationList[this.state.queueStation]['stationId']
-    this.getStation(id)
+    let name = [this.state.queueStation]
+    this.getStation(name)
   }
 
   render() {
-    const simpleList = Object.keys(this.state.stationList).sort()
+    const simpleList = this.state.stationList
     console.log('numstations: ', simpleList.length)
+    const filterStations = function(array, query) {
+      return array.filter(function(station) {
+        return station.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      })
+    }
     return (
       <div className="container">
         <div className="header">
@@ -60,10 +65,35 @@ class Main extends React.Component {
           <form onSubmit={this.updateStation}>
             <label>
               Select station:
-              <input type="text" value={this.state.queueStation} onChange={this.setStation}>
-                {simpleList.find(element => element === this.state.queueStation )}
-              </input>
-            </label>
+              </label>
+              <input
+              type="text"
+              name="search"
+              id="selection"
+              value={this.state.queueStation}
+              placeholder="Type station name..."
+              onChange={this.setStation}
+
+              />
+              {/* {filterStations(simpleList, this.state.queueStation)} */}
+              {/* <script id="selectscript">{
+                function chooseStation() {
+                  console.log('y7ou are here')
+                  var station, filter, stationList, txtVal, a;
+                  station = this.state.queueStation;
+                  filter = station.toLowerCase();
+                  section = document.getElementById('selection')
+                  stationList = this.state.stationList;
+                  for (var i = 0; i < stationList.length; i++) {
+                    let a = stationList[i];
+                    txtVal = this.state.queueStation;
+                    if (txtVal.toLowerCase().indexOf(filter) > -1) {
+                      console.log(stationList[i]);
+                    }
+                  }
+                }
+              }words</script> */}
+
             <input type="submit" value="Get station data" className="get"/>
           </form>
         </div>
