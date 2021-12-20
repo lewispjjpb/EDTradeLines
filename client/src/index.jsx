@@ -3,6 +3,7 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import BuyGraph from './buyGraph.jsx';
 import SellGraph from './sellGraph.jsx';
+import AllStations from './allStations.jsx'
 
 
 class Main extends React.Component {
@@ -70,11 +71,6 @@ class Main extends React.Component {
   }
 
 
-
-
-
-
-
   getNewStation(e) {
     e.preventDefault();
     let name = this.state.queueStation
@@ -87,25 +83,21 @@ class Main extends React.Component {
         return station.toLowerCase().indexOf(query.toLowerCase()) !== -1
       })
     }
+
     return (
       <div className="container">
         <div className="header">
           <div>Current station: <b>{this.state.currentStation.stationName}   </b>
               ||| Market data age: {format(this.state.currentStation.date)} </div>
               <br />
-              <select type="text" value={this.state.queueStation} onChange={this.setStation}>
-                {this.state.stationList.map(item => <option value={item}>{item}</option>)}
-              </select>
+              <AllStations statList={this.state.stationList} getStation={this.getStation}/>
 
-            <input type="submit" value="Get station data" className="get"
-            onClick={this.getNewStation}/>
         </div>
 
         <div className="main">
           <div><BuyGraph data={this.state.currentStation}/></div>
           <div><SellGraph data={this.state.currentStation}/></div>
         </div>
-
         <div className="footer">
           <em>Hey!  I'm looking for work as a developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn</a> and <a href="https://github.com/lewispjjpb"> GitHub</a> profiles!</em>
         </div>
