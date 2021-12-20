@@ -1,15 +1,8 @@
 import * as React from 'react'
-// import {render} from 'react-dom'
 import Downshift from 'downshift'
 
 
 function AllStations(props) {
-  // console.log(props.statList)
-  // if (props.statList) {
-  //   console.log ('hasn\t populated')
-  // } else {
-  //   console.log(props)
-  // }
   let items = props.statList;
 
   return  (
@@ -17,7 +10,6 @@ function AllStations(props) {
     onChange={selection =>
       selection ? props.getStation(selection) : 'Type station name...'
     }
-    // itemToString={item => (item ? item.value : '')}
     >
       {({
         getInputProps,
@@ -35,7 +27,7 @@ function AllStations(props) {
           <div
             {...getRootProps({}, {suppressRefError: true})}
           >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} placeholder="Type station name..."/>
           </div>
           <ul {...getMenuProps()}>
             {isOpen

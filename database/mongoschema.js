@@ -66,6 +66,7 @@ const makeStation = (line) => {
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
+const commodModel = mongoose.model('commodity', commodSchema);
 
 
 

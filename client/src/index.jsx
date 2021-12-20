@@ -26,7 +26,7 @@ class Main extends React.Component {
   statList = [];
 
   componentDidMount() {
-    this.getStation('Abernathy City');
+    this.getStation('Jameson Memorial');
     this.populateStationList();
   }
 
