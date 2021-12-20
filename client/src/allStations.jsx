@@ -30,10 +30,9 @@ function AllStations(props) {
         selectedItem,
         getRootProps,
       }) => (
-        <div>
+        <div id="searchbox">
           <label {...getLabelProps()}>Select a station:  </label>
           <div
-            style={{display: 'inline-block'}}
             {...getRootProps({}, {suppressRefError: true})}
           >
             <input {...getInputProps()} />
@@ -43,7 +42,7 @@ function AllStations(props) {
               ? items
                   .filter(item => !inputValue || item.includes(inputValue))
                   .map((item, index) => (
-                    <li
+                    <div
                       {...getItemProps({
                         key: item,
                         index,
@@ -52,11 +51,12 @@ function AllStations(props) {
                           backgroundColor:
                             highlightedIndex === index ? 'lightgray' : 'white',
                           fontWeight: selectedItem === item ? 'bold' : 'normal',
-                        },
+                          // width: '300px',
+                         },
                       })}
                     >
                       {item}
-                    </li>
+                    </div>
                   ))
               : null}
           </ul>

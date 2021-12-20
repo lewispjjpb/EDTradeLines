@@ -88,11 +88,9 @@ class Main extends React.Component {
       <div className="container">
         <div className="header">
           <div>Current station: <b>{this.state.currentStation.stationName}   </b>
-              ||| Market data age: {format(this.state.currentStation.date)} </div>
-              <br />
+              --- Market data age: {format(this.state.currentStation.date)} </div>
               <AllStations statList={this.state.stationList} getStation={this.getStation}/>
-
-        </div>
+          </div>
 
         <div className="main">
           <div><BuyGraph data={this.state.currentStation}/></div>
