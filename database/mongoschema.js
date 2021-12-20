@@ -70,13 +70,13 @@ const marketModel = mongoose.model('marketData', marketSchema);
 
 
 module.exports = {
-  getMarket: function(stationId) {
-    const answer = marketModel.find({"stationId": stationId});
+  getMarket: function(name) {
+    const answer = marketModel.find({"stationName": name});
     return answer;
   },
 
   getStations: function() {
-    const answer = marketModel.find({}, {"stationId":1, "stationName":1, "date":1, "systemName":1, "_id":0  });
+    const answer = marketModel.find(null, {"stationId":1, "stationName":1, "date":1, "_id":0  }).hint({ stationId: 1}).lean();
     return answer;
   },
 

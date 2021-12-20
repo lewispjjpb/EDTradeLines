@@ -1,68 +1,104 @@
 import React, {Suspense} from 'react';
 import axios from 'axios';
+import { format } from 'timeago.js';
 import BuyGraph from './buyGraph.jsx';
 import SellGraph from './sellGraph.jsx';
-import { format } from 'timeago.js';
+
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentStation: {},
-      stationList: {},
-      queueStation: ''
+      stationList: [],
+      activeSuggestion: 0,
+      filtered: [],
+      showSuggestions: false,
+      queueStation: '',
     }
     this.getStation = this.getStation.bind(this);
-    this.populationStationList = this.populationStationList.bind(this);
+    this.populateStationList = this.populateStationList.bind(this);
     this.setStation = this.setStation.bind(this);
-    this.updateStation = this.updateStation.bind(this);
+    this.getNewStation = this.getNewStation.bind(this);
   }
+
+  statList = [];
 
   componentDidMount() {
-    this.getStation(3223925504);
-    this.populationStationList();
+    this.getStation('Abernathy City');
+    this.populateStationList();
   }
 
-  getStation(stationId) {
-    axios.get(`/market/${stationId}`)
+  getStation(stationName) {
+    axios.get(`/market/${stationName}`)
       .then(response => this.setState({'currentStation': response.data[0]}))
       .then(console.log('station loaded'))
       .catch('error in getStation?')
   }
 
-  populationStationList() {
+  populateStationList() {
     axios.get('/stations')
-      .then (response => this.setState({stationList: response.data}))
+      .then (response => {
+        console.log('headers: ', response.headers)
+        this.setState({stationList: response.data})
+        this.statList = response.data
+        console.log('set statList')
+      })
   }
 
   setStation(e) {
     e.preventDefault();
-    this.setState({queueStation: e.target.value})
+    const userInput = e.target.value;
+    const filtered = this.statList.filter(
+      suggestion => suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    )
+    this.setState({
+      activeSuggestion: 0,
+      filtered,
+      showSuggestions: true,
+      queueStation: e.target.value
+    })
   }
 
-  updateStation(e) {
+  selectStationFromList(e) {
+    this.setState({
+      activeSuggestion: 0,
+      filtered: [],
+      showSuggestions: false,
+      queueStation: e.currentTarget.innerText
+    });
+  }
+
+
+
+
+
+
+
+  getNewStation(e) {
     e.preventDefault();
-    let id = this.state.stationList[this.state.queueStation]['stationId']
-    this.getStation(id)
+    let name = this.state.queueStation
+    this.getStation(name)
   }
 
   render() {
-    const simpleList = Object.keys(this.state.stationList).sort()
-    console.log('numstations: ', simpleList.length)
+    const filterStations = function(array, query) {
+      return array.filter(function(station) {
+        return station.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      })
+    }
     return (
       <div className="container">
         <div className="header">
           <div>Current station: <b>{this.state.currentStation.stationName}   </b>
               ||| Market data age: {format(this.state.currentStation.date)} </div>
-          <form onSubmit={this.updateStation}>
-            <label>
-              Select station:
+              <br />
               <select type="text" value={this.state.queueStation} onChange={this.setStation}>
-                {simpleList.map(item => <option value={item}>{item}</option>)}
+                {this.state.stationList.map(item => <option value={item}>{item}</option>)}
               </select>
-            </label>
-            <input type="submit" value="Get station data" className="get"/>
-          </form>
+
+            <input type="submit" value="Get station data" className="get"
+            onClick={this.getNewStation}/>
         </div>
 
         <div className="main">

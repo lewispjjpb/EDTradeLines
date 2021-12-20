@@ -46,7 +46,7 @@ body {
   margin: 5px;
   grid-area: footer;
   padding: 3px;
-  color: red;
+  color: rgb(255, 208, 0);
 }
 
 a {
@@ -57,3 +57,6 @@ a {
   background-color: #2b2a29;
   color: whitesmoke
 }
+
+/* autocomplete below */
+

@@ -15,15 +15,18 @@ app.use(serverTiming ());
 app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// app.use('/', require('./routes/home.js'));
-// app.use(timings.end('routing'));
+var allStations = {}
 
 
 app.get('/market/:stationId', (req, res) => {
+  let start = Date.now();
   console.log(req.params)
   const stationId = req.params.stationId
   db.getMarket(stationId)
-    .then(results => {res.status(200).send(results)})
+    .then(results => {
+      res.setMetric('db', (Date.now() - start), 'getting db');
+      res.status(200).send(results)
+    })
     .catch(err => res.status(500).send(err))
 })
 
@@ -39,6 +42,8 @@ app.get('/stations', (req, res) => {
   db.getStations()
     .then(results => {
       res.setMetric('db', (Date.now() - start), 'getting db');
+      console.log('waited for: ', (Date.now() - start))
+      start = Date.now();
       let stationSum = {};
       for (let i = 0; i < results.length; i++) {
         let stationInfo = {};
@@ -49,13 +54,12 @@ app.get('/stations', (req, res) => {
         stationSum[oneStation['stationName']] = stationInfo
       };
       // console.log(stationSum)
-      start = Date.now();
       res.setMetric('server', (Date.now() - start), 'arr build');
       return stationSum
     })
     .then(stations => {
-      // res.header({'server-timing': 'db, server'});
-      res.status(200).send(stations)
+      allStations = stations
+      res.status(200).send(Object.keys(stations).sort())
     })
     .catch(err => res.status(500).send(err))
 })

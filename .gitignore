@@ -4,3 +4,4 @@ bundle.js
 bundle.js.map
 database/rawdata.json
 database/rawdata.jsonl
+public/
