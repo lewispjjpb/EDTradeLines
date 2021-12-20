@@ -1,7 +1,4 @@
 node_modules/
 package-lock.json
-bundle.js
-bundle.js.map
 database/rawdata.json
 database/rawdata.jsonl
-public/
