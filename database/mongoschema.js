@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const fs = require('fs');
-var sample = require('./sample.json');
 const JSONStream = require('JSONStream');
 const split = require('split')
-
 
 mongoose.connect('mongodb://localhost:27017/market');
 
@@ -29,6 +27,7 @@ const marketSchema = new mongoose.Schema ({
   commodities: [commodSchema]
 })
 
+
 const makeStation = (line) => {
   var station = {
     stationName: line['stationName'],
@@ -51,6 +50,18 @@ const makeStation = (line) => {
     }
     station['commodities'].push(thisCommodity)
   }
+
+
+  // var populate = () => {  //function for seeding
+  //   var stream = fs.createReadStream('database/decData.json')
+  //     .pipe(split())
+  //     .on('data', function(line) {
+  //       const parsed = JSON.parse(line)
+
+  //       makeStation(parsed.message)
+  //     })
+  // }
+  // populate() //database make switch
 
 
   const findStationAndUpdate = (data) => {
