@@ -48,7 +48,6 @@ app.get('/stations', (req, res) => {
         stationInfo['system'] = oneStation['systemName']
         stationSum[oneStation['stationName']] = stationInfo
       };
-      // console.log(stationSum)
       res.setMetric('server', (Date.now() - start), 'arr build');
       return stationSum
     })
@@ -57,6 +56,10 @@ app.get('/stations', (req, res) => {
       res.status(200).send(Object.keys(stations).sort())
     })
     .catch(err => res.status(500).send(err))
+})
+
+app.get('/commodities/:commod', (req, res) => {
+  const commod = req.params.commodity
 })
 
 
