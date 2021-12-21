@@ -59,7 +59,13 @@ app.get('/stations', (req, res) => {
 })
 
 app.get('/commodities/:commod', (req, res) => {
-  const commod = req.params.commodity
+  const commod = req.params.commod;
+  db.getCommodity(commod)
+    .then(results => {
+      console.log(results);
+      res.status(200).send(results)
+    })
+    .catch(err => res.status(500).send(err))
 })
 
 

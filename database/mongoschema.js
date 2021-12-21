@@ -51,7 +51,6 @@ const makeStation = (line) => {
     station['commodities'].push(thisCommodity)
   }
 
-
   // var populate = () => {  //function for seeding
   //   var stream = fs.createReadStream('database/decData.json')
   //     .pipe(split())
@@ -63,7 +62,6 @@ const makeStation = (line) => {
   // }
   // populate() //database make switch
 
-
   const findStationAndUpdate = (data) => {
     const query = {'stationId': (data.stationId).toString()}
     console.log('making: ', query)
@@ -72,8 +70,8 @@ const makeStation = (line) => {
       return (`${data.stationName} saved.`);
     })
   }
-  findStationAndUpdate(station)
 
+  findStationAndUpdate(station)
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
@@ -92,5 +90,13 @@ module.exports = {
     return answer;
   },
 
-  makeStation: makeStation
+  makeStation: makeStation,
+
+  getCommodity: function(commodity) {
+    const answer = marketModel.find( {$and: [
+      { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:0}} } } ] },
+      {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0});
+    return answer;
+  }
+
 }
