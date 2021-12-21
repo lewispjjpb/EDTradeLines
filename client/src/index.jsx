@@ -16,11 +16,13 @@ class Main extends React.Component {
       filtered: [],
       showSuggestions: false,
       queueStation: '',
+      commod: null
     }
     this.getStation = this.getStation.bind(this);
     this.populateStationList = this.populateStationList.bind(this);
     this.setStation = this.setStation.bind(this);
     this.getNewStation = this.getNewStation.bind(this);
+    this.getCommodityDetails = this.getCommodityDetails.bind(this)
   }
 
   statList = [];
@@ -75,6 +77,14 @@ class Main extends React.Component {
     e.preventDefault();
     let name = this.state.queueStation
     this.getStation(name)
+  }
+
+  getCommodityDetails(e) {
+    e.preventDefault();
+    let commodity = e.target.value;
+    axios.get('/commodities')
+      .then(response => this.setState({commod: response.data}))
+      .catch(err => console.log(err))
   }
 
   render() {
