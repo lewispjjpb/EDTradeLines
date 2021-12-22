@@ -2,3 +2,5 @@ node_modules/
 package-lock.json
 database/rawdata.json
 database/rawdata.jsonl
+decData.jsonl
+decData.json

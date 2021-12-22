@@ -1,4 +1,4 @@
-# BlueHorus Ocean
+# ED TradeLines
 Website: http://3.144.245.234:3001/
 
 This website enables users to view dynamically updated commodity prices (synthetic) at thousands of different markets.

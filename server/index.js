@@ -62,8 +62,19 @@ app.get('/commodities/:commod', (req, res) => {
   const commod = req.params.commod;
   db.getCommodity(commod)
     .then(results => {
-      console.log(results);
-      res.status(200).send(results)
+      let response = {};
+      response.commodity = commod;
+      response.markets = []
+      for (let i = 0; i < results.length; i++) {
+        let oneMarket = {
+          'sellPrice': results[i].commodities[0].sellPrice,
+          'demand': results[i].commodities[0].demand,
+          'system': results[i].systemName,
+          'station': results[i].stationName
+        }
+        response.markets.push(oneMarket)
+      }
+      res.status(200).send(response)
     })
     .catch(err => res.status(500).send(err))
 })
