@@ -25,7 +25,7 @@ class SellGraph extends React.Component {
       let xData = [];
       let yData = [];
       let zData = [];
-      let aData = [];
+      // let aData = [];
       for (var i = 0; i < data.length; i++) {
         xData.push(data[i]['demand'])
         yData.push(data[i]['demand'] * data[i]['sellPrice'])

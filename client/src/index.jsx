@@ -3,7 +3,8 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import BuyGraph from './bGraph.jsx';
 import SellGraph from './sGraph.jsx';
-import AllStations from './allStations.jsx'
+import AllStations from './allStations.jsx';
+import SellCommodCompare from './sCommodDist.jsx'
 
 
 class Main extends React.Component {
@@ -16,7 +17,7 @@ class Main extends React.Component {
       filtered: [],
       showSuggestions: false,
       queueStation: '',
-      commod: null
+      commod: null,
     }
     this.getStation = this.getStation.bind(this);
     this.populateStationList = this.populateStationList.bind(this);
@@ -42,10 +43,8 @@ class Main extends React.Component {
   populateStationList() {
     axios.get('/stations')
       .then (response => {
-        console.log('headers: ', response.headers)
         this.setState({stationList: response.data})
         this.statList = response.data
-        console.log('set statList')
       })
   }
 
@@ -103,9 +102,13 @@ class Main extends React.Component {
           </div>
 
         <div className="main">
-          <div><SellGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/></div>
-          <div><BuyGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/></div>
+          <SellGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/>
+          <BuyGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/>
         </div>
+        <div className="main2">
+          <SellCommodCompare data={this.state.commod} currentStation={this.state.currentStation}/>
+        </div>
+
         <div className="footer">
           <em>Hey!  I'm looking for work as a developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn</a> and <a href="https://github.com/lewispjjpb"> GitHub</a> profiles!</em>
           <div style={{color: 'dimgrey',}}>ED TradeLines is not endorsed by or affiliated with Frontier Developments. | Charts by Plotly</div>
