@@ -48,13 +48,54 @@ app.get('/stations', (req, res) => {
         stationInfo['system'] = oneStation['systemName']
         stationSum[oneStation['stationName']] = stationInfo
       };
-      // console.log(stationSum)
       res.setMetric('server', (Date.now() - start), 'arr build');
       return stationSum
     })
     .then(stations => {
       allStations = stations
       res.status(200).send(Object.keys(stations).sort())
+    })
+    .catch(err => res.status(500).send(err))
+})
+
+app.get('/commoditiesS/:commod', (req, res) => {
+  const commod = req.params.commod;
+  db.getCommodityS(commod)
+    .then(results => {
+      let response = {};
+      response.commodity = commod;
+      response.markets = []
+      for (let i = 0; i < results.length; i++) {
+        let oneMarket = {
+          'sellPrice': results[i].commodities[0].sellPrice,
+          'demand': results[i].commodities[0].demand,
+          'system': results[i].systemName,
+          'station': results[i].stationName
+        }
+        response.markets.push(oneMarket)
+      }
+      res.status(200).send(response)
+    })
+    .catch(err => res.status(500).send(err))
+})
+
+app.get('/commoditiesB/:commod', (req, res) => {
+  const commod = req.params.commod;
+  db.getCommodityB(commod)
+    .then(results => {
+      let response = {};
+      response.commodity = commod;
+      response.markets = []
+      for (let i = 0; i < results.length; i++) {
+        let oneMarket = {
+          'buyPrice': results[i].commodities[0].buyPrice,
+          'stock': results[i].commodities[0].stock,
+          'system': results[i].systemName,
+          'station': results[i].stationName
+        }
+        response.markets.push(oneMarket)
+      }
+      res.status(200).send(response)
     })
     .catch(err => res.status(500).send(err))
 })

@@ -8,7 +8,7 @@ function AllStations(props) {
   return  (
     <Downshift
     onChange={selection =>
-      selection ? props.getStation(selection) : 'Type station name...'
+      selection ? props.getStation(selection) : ''
     }
     >
       {({
@@ -32,7 +32,7 @@ function AllStations(props) {
           <ul {...getMenuProps()}>
             {isOpen
               ? items
-                  .filter(item => !inputValue || item.includes(inputValue))
+                  .filter(item => !inputValue || item.toUpperCase().includes(inputValue.toUpperCase()))
                   .map((item, index) => (
                     <div
                       {...getItemProps({

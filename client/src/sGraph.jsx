@@ -4,22 +4,27 @@ import Plot from 'react-plotly.js';
 
 
 ///
-class BuyGraph extends React.Component {
+class SellGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {graphData: {}};
+    this.valueClick = this.valueClick.bind(this);
   }
 
+  valueClick(data){
+    var pts = '';
+    for(var i=0; i < data.points.length; i++){
+      pts = data.points[i].text;
+    }
+    this.props.getCommodityDetails(pts[0])
+  };
 
   componentDidUpdate(prev) {
-
     if (prev.data.commodities !== this.props.data.commodities) {
-
       let data = this.props.data.commodities;
       let xData = [];
       let yData = [];
       let zData = [];
-      let aData = [];
       for (var i = 0; i < data.length; i++) {
         xData.push(data[i]['demand'])
         yData.push(data[i]['demand'] * data[i]['sellPrice'])
@@ -40,6 +45,7 @@ class BuyGraph extends React.Component {
         'Unit price: %{text[1]} <br>' +
         'Total profit potential: %{y}',
       }]
+
       let layout = {
         margin: {
           t: 40,
@@ -48,30 +54,36 @@ class BuyGraph extends React.Component {
         plot_bgcolor: '#2b2a29',
         paper_bgcolor: '#2b2a29',
         font: {color: '#ff9030'},
-        height: 410,
-        width: 500,
+        height: 510,
+        width: 600,
         responsive: true,
         autosize: true,
         useResizeHandler: true,
         log_x: true,
         log_y: true,
-        xaxis: {title: "total demand"},
-        yaxis: {title: "total potential profit"},
+        xaxis: {title: "total demand", color: '#66adee'},
+        yaxis: {title: "total potential profit", color: '#66adee'},
         title: 'Sell to station'
       }
-      this.setState({graphData: {'trace': trace, 'layout': layout}})
-    }
-  }
+      let click = this.valueClick;
 
+      this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
+    }
+
+  }
 
   render() {
     return (
-    <div>
-      <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
-    </div>
+      <div id="selltostation">
+        <Plot
+        data={this.state.graphData['trace']}
+        layout={this.state.graphData['layout']}
+        onClick={this.state.graphData['onClick']}
+        getCommodityDetails={this.props.getCommodityDetails}/>
+      </div>
     )
   }
 }
 
 
-export default BuyGraph
+export default SellGraph

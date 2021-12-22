@@ -12,7 +12,9 @@ body {
   grid-template-areas:
     "header"
     "main"
+    "main2"
     "footer"
+    "footer2"
 }
 
 
@@ -39,6 +41,20 @@ body {
   padding: 3px;
 }
 
+.main2 {
+  border: solid;
+  display:inline;
+  text-align: center;
+  text-anchor: middle;
+  justify-content: center;
+  margin: 5px;
+  display: flex;
+  flex-shrink: 5;
+  flex-grow: 2;
+  grid-area: main2;
+  padding: 3px;
+}
+
 .footer {
   border: solid;
   justify-self: stretch;
@@ -46,7 +62,18 @@ body {
   margin: 5px;
   grid-area: footer;
   padding: 3px;
-  color: rgb(255, 208, 0);
+  color: rgb(221, 186, 31);
+}
+
+.footer2 {
+  border: solid;
+  border-color: 'black';
+  justify-self: stretch;
+  text-align: center;
+  margin: 5px;
+  grid-area: footer2;
+  padding: 3px;
+  color: rgb(87, 87, 87);
 }
 
 a {

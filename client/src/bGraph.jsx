@@ -4,17 +4,24 @@ import Plot from 'react-plotly.js';
 
 
 ///
-class SellGraph extends React.Component {
+class BuyGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {graphData: {}};
+    this.valueClick = this.valueClick.bind(this);
   }
+
+  valueClick(data){
+    var pts = '';
+    for(var i=0; i < data.points.length; i++){
+      pts = data.points[i].text;
+    }
+    this.props.getCommodityDetails(pts[0])
+  };
 
 
   componentDidUpdate(prev) {
-
     if (prev.data.commodities !== this.props.data.commodities) {
-
       let data = this.props.data.commodities;
       let xData = [];
       let yData = [];
@@ -44,18 +51,20 @@ class SellGraph extends React.Component {
         plot_bgcolor: '#2b2a29',
         paper_bgcolor: '#2b2a29',
         font: {color: '#ff9030'},
-        height: 410,
-        width: 500,
+        height: 510,
+        width: 600,
         responsive: true,
         autosize: true,
         useResizeHandler: true,
         log_x: true,
         log_y: true,
-        xaxis: {title: "total supply"},
-        yaxis: {title: "total cost to buy"},
+        xaxis: {title: "total supply", color: '#66adee'},
+        yaxis: {title: "total cost to buy", color: '#66adee'},
         title: 'Buy from station'
       }
-      this.setState({graphData: {'trace': trace, 'layout': layout}})
+      let click = this.valueClick;
+
+      this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
     }
   }
 
@@ -63,11 +72,15 @@ class SellGraph extends React.Component {
   render() {
     return (
     <div>
-      <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
+      <Plot
+      data={this.state.graphData['trace']}
+      layout={this.state.graphData['layout']}
+      onClick={this.state.graphData['onClick']}
+      getCommodityDetails={this.props.getCommodityDetails}/>
     </div>
     )
   }
 }
 
 
-export default SellGraph
+export default BuyGraph
