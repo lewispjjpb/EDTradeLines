@@ -79,11 +79,11 @@ class Main extends React.Component {
     this.getStation(name)
   }
 
-  getCommodityDetails(e) {
-    e.preventDefault();
-    let commodity = e.target.value;
-    axios.get('/commodities')
-      .then(response => this.setState({commod: response.data}))
+  getCommodityDetails(commodity) {
+    axios.get(`/commodities/${commodity}`)
+      .then(response => {
+        this.setState({commod: response.data})
+      })
       .catch(err => console.log(err))
   }
 
@@ -99,12 +99,12 @@ class Main extends React.Component {
         <div className="header">
           <div>Current station: <b>{this.state.currentStation.stationName}   </b>
               --- Market data age: {format(this.state.currentStation.date)} </div>
-              <AllStations statList={this.state.stationList} getStation={this.getStation}/>
+              <AllStations statList={this.state.stationList} getStation={this.getStation} />
           </div>
 
         <div className="main">
-          <div><BuyGraph data={this.state.currentStation}/></div>
-          <div><SellGraph data={this.state.currentStation}/></div>
+          <div><BuyGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/></div>
+          <div><SellGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/></div>
         </div>
         <div className="footer">
           <em>Hey!  I'm looking for work as a developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn</a> and <a href="https://github.com/lewispjjpb"> GitHub</a> profiles!</em>

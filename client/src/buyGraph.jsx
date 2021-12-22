@@ -8,13 +8,19 @@ class BuyGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {graphData: {}};
+    this.valueClick = this.valueClick.bind(this);
   }
 
+  valueClick(data){
+    var pts = '';
+    for(var i=0; i < data.points.length; i++){
+      pts = data.points[i].text;
+    }
+    this.props.getCommodityDetails(pts[0])
+  };
 
   componentDidUpdate(prev) {
-
     if (prev.data.commodities !== this.props.data.commodities) {
-
       let data = this.props.data.commodities;
       let xData = [];
       let yData = [];
@@ -40,6 +46,7 @@ class BuyGraph extends React.Component {
         'Unit price: %{text[1]} <br>' +
         'Total profit potential: %{y}',
       }]
+
       let layout = {
         margin: {
           t: 40,
@@ -59,16 +66,22 @@ class BuyGraph extends React.Component {
         yaxis: {title: "total potential profit"},
         title: 'Sell to station'
       }
-      this.setState({graphData: {'trace': trace, 'layout': layout}})
-    }
-  }
+      let click = this.valueClick
 
+      this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
+    }
+
+  }
 
   render() {
     return (
-    <div>
-      <Plot data={this.state.graphData['trace']} layout={this.state.graphData['layout']}/>
-    </div>
+      <div id="selltostation">
+        <Plot
+        data={this.state.graphData['trace']}
+        layout={this.state.graphData['layout']}
+        onClick={this.state.graphData['onClick']}
+        getCommodityDetails={this.props.getCommodityDetails}/>
+      </div>
     )
   }
 }
