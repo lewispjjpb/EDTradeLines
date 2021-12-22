@@ -5,6 +5,7 @@ import BuyGraph from './bGraph.jsx';
 import SellGraph from './sGraph.jsx';
 import AllStations from './allStations.jsx';
 import SellCommodCompare from './sCommodDist.jsx'
+import BuyCommodCompare from './bCommodDist.jsx'
 
 
 class Main extends React.Component {
@@ -17,7 +18,8 @@ class Main extends React.Component {
       filtered: [],
       showSuggestions: false,
       queueStation: '',
-      commod: null,
+      commodS: null,
+      commodB: null,
     }
     this.getStation = this.getStation.bind(this);
     this.populateStationList = this.populateStationList.bind(this);
@@ -79,9 +81,14 @@ class Main extends React.Component {
   }
 
   getCommodityDetails(commodity) {
-    axios.get(`/commodities/${commodity}`)
+    axios.get(`/commoditiesS/${commodity}`)
       .then(response => {
-        this.setState({commod: response.data})
+        this.setState({commodS: response.data})
+      })
+      .catch(err => console.log(err))
+    axios.get(`/commoditiesB/${commodity}`)
+      .then(response => {
+        this.setState({commodB: response.data})
       })
       .catch(err => console.log(err))
   }
@@ -106,13 +113,14 @@ class Main extends React.Component {
           <BuyGraph data={this.state.currentStation} getCommodityDetails={this.getCommodityDetails}/>
         </div>
         <div className="main2">
-          <SellCommodCompare data={this.state.commod} currentStation={this.state.currentStation}/>
+          <SellCommodCompare data={this.state.commodS} currentStation={this.state.currentStation}/>
+          <BuyCommodCompare data={this.state.commodB} currentStation={this.state.currentStation}/>
         </div>
 
         <div className="footer">
-          <em>Hey!  I'm looking for work as a developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn</a> and <a href="https://github.com/lewispjjpb"> GitHub</a> profiles!</em>
-          <div style={{color: 'dimgrey',}}>ED TradeLines is not endorsed by or affiliated with Frontier Developments. | Charts by Plotly</div>
+          Hey!  I'm looking for work as a developer!  Check out my <a href="https://www.linkedin.com/in/patrick-lewis-ms-pmp-34aaa254/" color="white">LinkedIn</a> and <a href="https://github.com/lewispjjpb"> GitHub</a> profiles!
         </div>
+          <div className="footer2">ED TradeLines is not endorsed by or affiliated with Frontier Developments. | Charts by Plotly</div>
       </div>
     )
   }

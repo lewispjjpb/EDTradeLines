@@ -25,7 +25,6 @@ class SellGraph extends React.Component {
       let xData = [];
       let yData = [];
       let zData = [];
-      // let aData = [];
       for (var i = 0; i < data.length; i++) {
         xData.push(data[i]['demand'])
         yData.push(data[i]['demand'] * data[i]['sellPrice'])
@@ -55,18 +54,18 @@ class SellGraph extends React.Component {
         plot_bgcolor: '#2b2a29',
         paper_bgcolor: '#2b2a29',
         font: {color: '#ff9030'},
-        height: 410,
-        width: 500,
+        height: 510,
+        width: 600,
         responsive: true,
         autosize: true,
         useResizeHandler: true,
         log_x: true,
         log_y: true,
-        xaxis: {title: "total demand"},
-        yaxis: {title: "total potential profit"},
+        xaxis: {title: "total demand", color: '#66adee'},
+        yaxis: {title: "total potential profit", color: '#66adee'},
         title: 'Sell to station'
       }
-      let click = this.valueClick
+      let click = this.valueClick;
 
       this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
     }
