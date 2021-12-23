@@ -9,14 +9,11 @@ const serverTiming  = require('server-timing');
 const app = express()
 const port = 3001
 
-
-
 app.use(serverTiming ());
 app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 
 var allStations = {}
-
 
 app.get('/market/:stationId', (req, res) => {
   let start = Date.now();
