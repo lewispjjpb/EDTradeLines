@@ -33,12 +33,6 @@ function BuyCommodCompare(props) {
           text: zData,
           hoverformat: '~s',
           hovertemplate: 'Station name: %{text[0]} <br>'  + 'System name: %{text[1]} <br>',
-          transforms: [{
-          type: 'filter',
-          target: 'y',
-          operation: '>',
-          value: 1
-          }]
         },
         {
           x: xData,

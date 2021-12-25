@@ -94,15 +94,15 @@ module.exports = {
 
   getCommodityS: function(commodity) {
     const answer = marketModel.find( {$and: [
-      { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:0}} } } ] },
-      {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0});
+      { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:1}} } } ] },
+      {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0}).lean();
     return answer;
   },
 
   getCommodityB: function(commodity) {
     const answer = marketModel.find( {$and: [
-      { 'commodities': {'$elemMatch': {'name': commodity , 'stock': {$gt:0}} } } ] },
-      {'stationName': 1, 'commodities.buyPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.stock':1, '_id': 0});
+      { 'commodities': {'$elemMatch': {'name': commodity , 'stock': {$gt:1}} } } ] },
+      {'stationName': 1, 'commodities.buyPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.stock':1, '_id': 0}).lean();
     return answer;
   }
 
