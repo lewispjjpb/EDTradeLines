@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
-import Plot from 'react-plotly.js';
 import React, { useState } from 'react';
+const Plot = React.lazy(() => import('react-plotly.js'));
 
 
 let graph = (<div>palcehodler</div>);
@@ -100,7 +100,9 @@ function BuyCommodCompare(props) {
     }
 
   return props.data ?
-    <Plot data={graphData.trace} layout={graphData.layout} />
+    <React.Suspense fallback={<div>Loading graph...</div>}>
+      <Plot data={graphData.trace} layout={graphData.layout} />
+    </React.Suspense>
   : null
 }
 
