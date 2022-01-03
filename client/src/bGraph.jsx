@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Plot from 'react-plotly.js';
 
 
-///
 class BuyGraph extends React.Component {
   constructor(props) {
     super(props);
