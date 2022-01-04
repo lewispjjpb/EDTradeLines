@@ -97,6 +97,18 @@ app.get('/commoditiesB/:commod', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+app.get('/commodAvg/:commod', (req, res) => {
+  const commod = req.params.commod;
+  db.getCommodAvg(commod)
+    .then(results => {
+      res.status(200).send(results)
+    })
+    .catch(err => res.status(500).send(err))
+})
+
+
+
+
 zmq.feedMe()
 
 
