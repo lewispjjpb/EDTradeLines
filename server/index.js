@@ -97,6 +97,8 @@ app.get('/commoditiesB/:commod', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+zmq.feedMe()
+
 
 app.listen(port, () => {
   console.log(`EDTradelines listening at http://localhost:${port}`)
