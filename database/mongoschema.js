@@ -30,13 +30,9 @@ const marketSchema = new mongoose.Schema ({
 const marketAverage = new mongoose.Schema ({
   name: String,
   history: {
-    date: {
-      date: Date,
-      prices: {
-        avgPrice: Number,
-        status: String
-      }
-    },
+    date: Date,
+    avgPrice: Number,
+    status: [String]
   }
 })
 
@@ -71,10 +67,8 @@ const makeStation = (line) => {
       name: line.commodities[i].name,
       history: {
         date: convertedDate,
-        prices: {
-          avgPrice: line.commodities[i].meanPrice,
-          status: line.commodities[i].statusFlags
-        }
+        avgPrice: line.commodities[i].meanPrice,
+        status: line.commodities[i].statusFlags
       }
     })
 
@@ -101,8 +95,7 @@ const makeStation = (line) => {
     })
 
     for (var i = 0; i < market.length; i++) {
-      const avgPriceQuery = {'name': market[i].name}
-      // console.log('adding commod: ', market[i].history.prices.avgPrice)
+      // const avgPriceQuery = {'name': market[i].name}
       const data = new avgModel(market[i])
       data.save()
     }
@@ -144,6 +137,11 @@ module.exports = {
       { 'commodities': {'$elemMatch': {'name': commodity , 'stock': {$gt:1}} } } ] },
       {'stationName': 1, 'commodities.buyPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.stock':1, '_id': 0}).lean();
     return answer;
+  },
+
+  getCommodAvg: function(commodity) {
+    const answer = avgModel.find({'name': commodity});
+    return answer
   }
 
 }
