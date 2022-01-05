@@ -77,7 +77,7 @@ function SellCommodCompare(props) {
           domain: [0, 0.85],
           showgrid: false,
           zeroline: false,
-          type: 'log',
+          // type: 'log',
           title: 'total demand',
           color: '#66adee'
         },
@@ -85,7 +85,7 @@ function SellCommodCompare(props) {
           domain: [0.85, 1],
           showgrid: false,
           zeroline: false,
-          type: 'log'
+          // type: 'log'
         },
         yaxis2: {
           domain: [0.85, 1],
