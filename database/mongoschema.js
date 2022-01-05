@@ -73,7 +73,7 @@ const makeStation = (line) => {
     })
 
   }
-  // console.log(averageData)////
+ 
 
   // var populate = () => {  //function for seeding
   //   var stream = fs.createReadStream('database/decData.json')
@@ -94,11 +94,11 @@ const makeStation = (line) => {
       return (`${data.stationName} saved.`);
     })
 
-    for (var i = 0; i < market.length; i++) {
-      // const avgPriceQuery = {'name': market[i].name}
-      const data = new avgModel(market[i])
-      data.save()
-    }
+    // for (var i = 0; i < market.length; i++) {
+    //   // const avgPriceQuery = {'name': market[i].name}
+    //   const data = new avgModel(market[i])
+    //   data.save()
+    // }
   }
 
 
