@@ -27,6 +27,15 @@ const marketSchema = new mongoose.Schema ({
   commodities: [commodSchema]
 })
 
+const marketAverage = new mongoose.Schema ({
+  name: String,
+  history: {
+    date: Date,
+    avgPrice: Number,
+    status: [String]
+  }
+})
+
 
 const makeStation = (line) => {
   var station = {
@@ -35,7 +44,10 @@ const makeStation = (line) => {
     date: line['timestamp'],
     systemName: line['systemName'],
     commodities: []
-  }
+  };
+
+  var averageData = [];
+
   for (var i = 0; i < line['commodities'].length; i++) {
     let thisCommodity = {
       buyPrice: line['commodities'][i]['buyPrice'],
@@ -49,7 +61,19 @@ const makeStation = (line) => {
       stockBracket: line['commodities'][i]['stockBracket']
     }
     station['commodities'].push(thisCommodity)
+
+    const convertedDate = new Date(line.timestamp)
+    averageData.push({
+      name: line.commodities[i].name,
+      history: {
+        date: convertedDate,
+        avgPrice: line.commodities[i].meanPrice,
+        status: line.commodities[i].statusFlags
+      }
+    })
+
   }
+  // console.log(averageData)////
 
   // var populate = () => {  //function for seeding
   //   var stream = fs.createReadStream('database/decData.json')
@@ -62,20 +86,28 @@ const makeStation = (line) => {
   // }
   // populate() //database make switch
 
-  const findStationAndUpdate = (data) => {
+  const findStationAndUpdate = (data, market) => {
     const query = {'stationId': (data.stationId).toString()}
     console.log('making: ', query)
     marketModel.findOneAndUpdate(query, data, {'upsert': true, useFindAndModify: false}, function(err, doc) {
       if (err) return {error: err};
       return (`${data.stationName} saved.`);
     })
+
+    for (var i = 0; i < market.length; i++) {
+      // const avgPriceQuery = {'name': market[i].name}
+      const data = new avgModel(market[i])
+      data.save()
+    }
   }
 
-  findStationAndUpdate(station)
+
+
+  findStationAndUpdate(station, averageData)
 }
 
 const marketModel = mongoose.model('marketData', marketSchema);
-const commodModel = mongoose.model('commodity', commodSchema);
+const avgModel = mongoose.model('averagePrice', marketAverage);
 
 
 
@@ -94,8 +126,9 @@ module.exports = {
 
   getCommodityS: function(commodity) {
     const answer = marketModel.find( {$and: [
-      { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:1}} } } ] },
-      {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0}).lean();
+      { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:1}} } } ] }).select(
+        {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0}
+      ).lean();
     return answer;
   },
 
@@ -104,6 +137,19 @@ module.exports = {
       { 'commodities': {'$elemMatch': {'name': commodity , 'stock': {$gt:1}} } } ] },
       {'stationName': 1, 'commodities.buyPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.stock':1, '_id': 0}).lean();
     return answer;
+  },
+
+  getCommodAvg: function(commodity) {
+    const answer = avgModel.find({'name': commodity});
+    return answer
   }
 
 }
+
+
+// getCommodityS: function(commodity) {
+//   const answer = marketModel.find( {$and: [
+//     { 'commodities': {'$elemMatch': {'name': commodity , 'demand': {$gt:1}} } } ] },
+//     {'stationName': 1, 'commodities.sellPrice.$': 1, 'commodities.name': 1, 'systemName':1, 'commodities.demand':1, '_id': 0}).lean();
+//   return answer;
+// },

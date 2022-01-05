@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom';
-import Plot from 'react-plotly.js';
 import React, { useState } from 'react';
+const Plot = React.lazy(() => import('react-plotly.js'));
 
 
 let graph = (<div>palcehodler</div>);
 
 function SellCommodCompare(props) {
+
   const [graphData] = useState({})
 
     if (props.data) {
@@ -53,7 +54,7 @@ function SellCommodCompare(props) {
       ],
 
       graphData.layout = {
-        title: `${title} for sale around the galaxy:`,
+        title: `Stations buying ${title} around the galaxy:`,
         margin: {
           t: 40,
           b: 50
@@ -64,9 +65,6 @@ function SellCommodCompare(props) {
         height: 510,
         width: 600,
         showlegend: false,
-        mirror: true,
-        ticks:'outside',
-        showline: true,
         xaxis: {
           domain: [0, 0.85],
           showgrid: false,
@@ -85,7 +83,7 @@ function SellCommodCompare(props) {
         },
         xaxis2: {
           domain: [0.85, 1],
-          showgrid: true,
+          showgrid: false,
           zeroline: false,
           type: 'log'
         },
@@ -100,7 +98,9 @@ function SellCommodCompare(props) {
     }
 
   return props.data ?
-    <Plot data={graphData.trace} layout={graphData.layout} />
+    <React.Suspense fallback={<div>Loading graph...</div>}>
+      <Plot data={graphData.trace} layout={graphData.layout} />
+    </React.Suspense>
   : <div>Click on commodity point above to see more information</div>
 }
 
