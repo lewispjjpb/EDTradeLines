@@ -84,7 +84,7 @@ const makeStation = (line) => {
   //       makeStation(parsed.message)
   //     })
   // }
-  // populate() //database make switch
+  // populate() 
 
   const findStationAndUpdate = (data, market) => {
     const query = {'stationId': (data.stationId).toString()}
