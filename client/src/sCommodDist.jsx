@@ -3,12 +3,9 @@ import React, { useState } from 'react';
 const Plot = React.lazy(() => import('react-plotly.js'));
 
 
-
 function SellCommodCompare(props) {
-  let loading = 'palcehodler';
-
   const [graphData] = useState({})
-  console.log(typeof(props.data))
+
     if (props.data) {
       if (typeof(props.data) === 'object') {
         const data = props.data.markets;
@@ -95,11 +92,7 @@ function SellCommodCompare(props) {
             type: 'log'
           }
         }
-
-
       }
-
-
     }
 
   return (typeof(props.data) === 'object') ?

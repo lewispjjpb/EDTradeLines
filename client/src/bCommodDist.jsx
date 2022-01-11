@@ -8,7 +8,6 @@ function BuyCommodCompare(props) {
 
     if (props.data) {
       if (typeof(props.data) === 'object') {
-
         const data = props.data.markets;
         const title = props.data.commodity
         let xData = [];
