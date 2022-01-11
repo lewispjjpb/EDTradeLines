@@ -18,8 +18,8 @@ class Main extends React.Component {
       filtered: [],
       showSuggestions: false,
       queueStation: '',
-      commodS: null,
-      commodB: null,
+      commodS: 'Click on a commodity above for more information (please be patient)',
+      commodB: '',
     }
     this.getStation = this.getStation.bind(this);
     this.populateStationList = this.populateStationList.bind(this);
@@ -81,6 +81,8 @@ class Main extends React.Component {
   }
 
   getCommodityDetails(commodity) {
+    this.setState({commodS: 'Crawling tens of thousands of markets with a very tiny hamster...'});
+    this.setState({commodB: 'Crawling tens of thousands of markets with a very tiny hamster...'});
     axios.get(`/commoditiesS/${commodity}`)
       .then(response => {
         this.setState({commodS: response.data})
