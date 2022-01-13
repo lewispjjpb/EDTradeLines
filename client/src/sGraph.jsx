@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Plot from 'react-plotly.js';
+import * as d3 from 'd3';
 
-
-///
 class SellGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {graphData: {}};
     this.valueClick = this.valueClick.bind(this);
   }
+
+
 
   valueClick(data){
     var pts = '';
@@ -69,7 +70,6 @@ class SellGraph extends React.Component {
 
       this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
     }
-
   }
 
   render() {
