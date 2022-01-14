@@ -43,12 +43,17 @@ function SellCommodCompare(props) {
             x: [props.currentStation.commodities[thisMarket].sellPrice],
             y: [props.currentStation.commodities[thisMarket].demand],
             type: 'scatter',
-            mode: 'markers',
+            mode: 'markers+text',
             marker: {
               color: '#66adee',
               symbol: 'x',
               size: 10,
             },
+            text: [props.currentStation.stationName],
+            textposition: "bottom center",
+            textfont: {
+              color: '#66adee'
+            }
           },
         ],
 

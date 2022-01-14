@@ -49,6 +49,11 @@ function BuyCommodCompare(props) {
               symbol: 'x',
               size: 10,
             },
+            text: [props.currentStation.stationName],
+            textposition: "bottom center",
+            textfont: {
+              color: '#66adee'
+            }
           },
         ],
 
