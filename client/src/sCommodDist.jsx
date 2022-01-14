@@ -49,9 +49,6 @@ function SellCommodCompare(props) {
               symbol: 'x',
               size: 10,
             },
-            // text: zData,
-            // hoverformat: '~s',
-            // hovertemplate: 'Station name: %{text[0]} <br>'  + 'System name: %{text[1]} <br>',
           },
         ],
 
@@ -67,9 +64,7 @@ function SellCommodCompare(props) {
           height: 510,
           width: 600,
           showlegend: false,
-          bargap: 0,
           xaxis: {
-            // domain: [0, 0.85],
             // showgrid: false,
             // zeroline: false,
             type: 'log',
@@ -77,7 +72,6 @@ function SellCommodCompare(props) {
             color: '#66adee'
           },
           yaxis: {
-            // domain: [0, 0.85],
             // showgrid: false,
             // zeroline: false,
             type: 'log',
