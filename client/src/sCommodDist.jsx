@@ -9,7 +9,13 @@ function SellCommodCompare(props) {
     if (props.data) {
       if (typeof(props.data) === 'object') {
         const data = props.data.markets;
-        const title = props.data.commodity
+        const title = props.data.commodity;
+        let thisMarket = 0;
+        for (var i = 0; i < props.currentStation.commodities.length; i++) {
+          if (props.currentStation.commodities[i].name === title) {
+            thisMarket = i;
+          }
+        }
         let xData = [];
         let yData = [];
         let zData = [];
@@ -34,21 +40,19 @@ function SellCommodCompare(props) {
             hovertemplate: 'Station name: %{text[0]} <br>'  + 'System name: %{text[1]} <br>',
           },
           {
-            x: xData,
-            type: 'histogram',
+            x: [props.currentStation.commodities[thisMarket].sellPrice],
+            y: [props.currentStation.commodities[thisMarket].demand],
+            type: 'scatter',
+            mode: 'markers',
             marker: {
-              color: '#ff9030',
+              color: '#66adee',
+              symbol: 'x',
+              size: 10,
             },
-            yaxis: 'y2',
+            // text: zData,
+            // hoverformat: '~s',
+            // hovertemplate: 'Station name: %{text[0]} <br>'  + 'System name: %{text[1]} <br>',
           },
-          {
-            y: yData,
-            type: 'histogram',
-            marker: {
-              color: '#ff9030',
-            },
-            xaxis: 'x2',
-          }
         ],
 
         graphData.layout = {
@@ -63,34 +67,23 @@ function SellCommodCompare(props) {
           height: 510,
           width: 600,
           showlegend: false,
+          bargap: 0,
           xaxis: {
-            domain: [0, 0.85],
-            showgrid: false,
-            zeroline: false,
+            // domain: [0, 0.85],
+            // showgrid: false,
+            // zeroline: false,
             type: 'log',
             title: 'price per unit',
             color: '#66adee'
           },
           yaxis: {
-            domain: [0, 0.85],
-            showgrid: false,
-            zeroline: false,
-            // type: 'log',
+            // domain: [0, 0.85],
+            // showgrid: false,
+            // zeroline: false,
+            type: 'log',
             title: 'total demand',
             color: '#66adee'
           },
-          xaxis2: {
-            domain: [0.85, 1],
-            showgrid: false,
-            zeroline: false,
-            // type: 'log'
-          },
-          yaxis2: {
-            domain: [0.85, 1],
-            showgrid: false,
-            zeroline: false,
-            type: 'log'
-          }
         }
       }
     }
