@@ -4,8 +4,8 @@ import { format } from 'timeago.js';
 import BuyGraph from './bGraph.jsx';
 import SellGraph from './sGraph.jsx';
 import AllStations from './allStations.jsx';
-import SellCommodCompare from './sCommodDist.jsx'
-import BuyCommodCompare from './bCommodDist.jsx'
+import SellCommodCompare from './sCommodDist.jsx';
+import BuyCommodCompare from './bCommodDist.jsx';
 
 
 class Main extends React.Component {
@@ -25,7 +25,7 @@ class Main extends React.Component {
     this.populateStationList = this.populateStationList.bind(this);
     this.setStation = this.setStation.bind(this);
     this.getNewStation = this.getNewStation.bind(this);
-    this.getCommodityDetails = this.getCommodityDetails.bind(this)
+    this.getCommodityDetails = this.getCommodityDetails.bind(this);
   }
 
   statList = [];
@@ -45,8 +45,8 @@ class Main extends React.Component {
   populateStationList() {
     axios.get('/stations')
       .then (response => {
-        this.setState({stationList: response.data})
-        this.statList = response.data
+        this.setState({stationList: response.data});
+        this.statList = response.data;
       })
   }
 
@@ -76,8 +76,8 @@ class Main extends React.Component {
 
   getNewStation(e) {
     e.preventDefault();
-    let name = this.state.queueStation
-    this.getStation(name)
+    let name = this.state.queueStation;
+    this.getStation(name);
   }
 
   getCommodityDetails(commodity) {
@@ -85,12 +85,12 @@ class Main extends React.Component {
     this.setState({commodB: 'Crawling tens of thousands of markets with a very tiny hamster...'});
     axios.get(`/commoditiesS/${commodity}`)
       .then(response => {
-        this.setState({commodS: response.data})
+        this.setState({commodS: response.data});
       })
       .catch(err => console.log(err))
     axios.get(`/commoditiesB/${commodity}`)
       .then(response => {
-        this.setState({commodB: response.data})
+        this.setState({commodB: response.data});
       })
       .catch(err => console.log(err))
   }
@@ -128,4 +128,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main
+export default Main;
