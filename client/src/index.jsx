@@ -38,7 +38,6 @@ class Main extends React.Component {
   getStation(stationName) {
     axios.get(`/market/${stationName}`)
       .then(response => this.setState({'currentStation': response.data[0]}))
-      .then(console.log('station loaded'))
       .catch('error in getStation?')
   }
 
@@ -81,8 +80,9 @@ class Main extends React.Component {
   }
 
   getCommodityDetails(commodity) {
-    this.setState({commodS: 'Crawling tens of thousands of markets with a very tiny hamster...'});
-    this.setState({commodB: 'Crawling tens of thousands of markets with a very tiny hamster...'});
+    const numStations = this.state.stationList.length;
+    this.setState({commodS: `Crawling ${numStations} markets with a very tiny hamster...`});
+    this.setState({commodB: `Crawling ${numStations} markets with a very tiny hamster...`});
     axios.get(`/commoditiesS/${commodity}`)
       .then(response => {
         this.setState({commodS: response.data});
