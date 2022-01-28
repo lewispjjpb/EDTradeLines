@@ -38,7 +38,7 @@ class Main extends React.Component {
   getStation(stationName) {
     axios.get(`/market/${stationName}`)
       .then(response => this.setState({'currentStation': response.data[0]}))
-      .catch('error in getStation?')
+      .catch(err => console.log(err))
   }
 
   populateStationList() {
@@ -47,6 +47,7 @@ class Main extends React.Component {
         this.setState({stationList: response.data});
         this.statList = response.data;
       })
+      .catch(err => console.log(err))
   }
 
   setStation(e) {
