@@ -4,6 +4,10 @@ import Downshift from 'downshift'
 
 function AllStations(props) {
   let items = props.statList;
+  let promptText; //can you just use typescript right in your file?
+  props.statList.length > 0
+  ?  promptText = "Type station name..."
+  : promptText = "Station list still loading..."
 
   return  (
     <Downshift
@@ -27,7 +31,7 @@ function AllStations(props) {
           <div
             {...getRootProps({}, {suppressRefError: true})}
           >
-            <input {...getInputProps()} placeholder="Type station name..."/>
+            <input {...getInputProps()} placeholder={promptText}/>
           </div>
           <ul {...getMenuProps()}>
             {isOpen

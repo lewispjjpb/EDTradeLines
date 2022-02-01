@@ -3,7 +3,7 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import BuyGraph from './bGraph.jsx';
 import SellGraph from './sGraph.jsx';
-import AllStations from './allStations.jsx';
+import AllStations from './allStations.ts';
 import SellCommodCompare from './sCommodDist.jsx';
 import BuyCommodCompare from './bCommodDist.jsx';
 
