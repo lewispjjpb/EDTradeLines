@@ -15,7 +15,8 @@
     "test": "test",
     "start": "nodemon ./server/index.js",
     "react-dev": "webpack --mode=development -d source-map --watch",
-    "build": "webpack --mode production --progress profile"
+    "build": "webpack --mode production --progress profile",
+    "ts-dev": "tsc --watch --preserveWatchOutput"
   },
   "repository": {
     "type": "git",
@@ -59,6 +60,8 @@
     "babel": "^6.23.0",
     "babel-loader": "^8.2.3",
     "compression": "^1.7.4",
+    "tsc": "^2.0.4",
+    "typescript": "^4.5.5",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
   }
