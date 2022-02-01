@@ -1,8 +1,22 @@
+// {
+//   "compilerOptions": {
+//     "outDir": "public", // where to put the TS files
+//     "target": "ES2017", // which level of JS support to target
+//     "module": "CommonJS"
+//   },
+//   "include": ["client/src/app.jsx"] // which files to compile///////
+// }
+
 {
   "compilerOptions": {
-    "outDir": "dist", // where to put the TS files
-    "target": "ES2017", // which level of JS support to target
-    "module": "CommonJS"
+    "outDir": "./public/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "sourceMap": true
   },
-  "include": ["src"] // which files to compile
+  "include": ["client/src/app.jsx"]
 }
