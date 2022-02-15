@@ -4,7 +4,7 @@ const Plot = React.lazy(() => import('react-plotly.js'));
 
 
 function BuyCommodCompare(props) {
-  const [graphData] = useState({});
+  const [graphData, setGraphData] = useState({});
 
     if (props.data) {
       if (typeof(props.data) === 'object') {
