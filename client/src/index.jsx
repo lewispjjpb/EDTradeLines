@@ -82,8 +82,10 @@ class Main extends React.Component {
 
   getCommodityDetails(commodity) {
     const numStations = this.state.stationList.length;
-    this.setState({commodS: `Crawling ${numStations} markets with a very tiny hamster...`});
-    this.setState({commodB: `Crawling ${numStations} markets with a very tiny hamster...`});
+    this.setState({
+      commodS: `Crawling ${numStations} markets with a very tiny hamster...`,
+      commodB: `Crawling ${numStations} markets with a very tiny hamster...`
+    });
     axios.get(`/commoditiesS/${commodity}`)
       .then(response => {
         this.setState({commodS: response.data});
