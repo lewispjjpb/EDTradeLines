@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Main from './index.jsx';
+import BuyGraph from './bGraph.jsx';
 
 
 const data = [['test value']];
@@ -14,12 +14,17 @@ test('two plus two is four', () => {
 
 test('values to match', () => {
   const component = renderer.create(
-    <Main />
+    <BuyGraph />
   )
 
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 
+  tree.props.testClick('input')
+
+  // expect(tree.props.testClick('the test').toBe('the test'));
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 
 });
 

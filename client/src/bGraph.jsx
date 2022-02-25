@@ -69,11 +69,14 @@ class BuyGraph extends React.Component {
 
   render() {
     return (
-      <Plot
-      data={this.state.graphData['trace']}
-      layout={this.state.graphData['layout']}
-      onClick={this.valueClick}
-      getCommodityDetails={this.props.getCommodityDetails}/>
+      <div testClick={(string) => string}>
+        <Plot
+        data={this.state.graphData['trace']}
+        layout={this.state.graphData['layout']}
+        onClick={this.valueClick}
+        getCommodityDetails={this.props.getCommodityDetails}/>
+
+      </div>
     )
   }
 }

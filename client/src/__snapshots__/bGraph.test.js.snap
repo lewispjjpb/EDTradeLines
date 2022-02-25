@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`values to match 1`] = `
-<div>
+<div
+  testClick={[Function]}
+>
   <div
     style={
       Object {
@@ -15,11 +17,15 @@ exports[`values to match 1`] = `
 
 exports[`values to match 2`] = `
 <div
-  style={
-    Object {
-      "display": "inline-block",
-      "position": "relative",
+  testClick={[Function]}
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+        "position": "relative",
+      }
     }
-  }
-/>
+  />
+</div>
 `;
