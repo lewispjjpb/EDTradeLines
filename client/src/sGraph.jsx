@@ -66,21 +66,19 @@ class SellGraph extends React.Component {
         yaxis: {title: "total potential profit", color: '#66adee'},
         title: 'Sell to station'
       }
-      let click = this.valueClick;
 
-      this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
+      this.setState({graphData: {'trace': trace, 'layout': layout }})
     }
   }
 
   render() {
     return (
-      <div id="selltostation">
-        <Plot
-        data={this.state.graphData['trace']}
-        layout={this.state.graphData['layout']}
-        onClick={this.state.graphData['onClick']}
-        getCommodityDetails={this.props.getCommodityDetails}/>
-      </div>
+      <Plot
+      id="selltostation"
+      data={this.state.graphData['trace']}
+      layout={this.state.graphData['layout']}
+      onClick={this.valueClick}
+      getCommodityDetails={this.props.getCommodityDetails}/>
     )
   }
 }

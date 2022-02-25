@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`values to match 1`] = `
+<div
+  testClick={[Function]}
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+        "position": "relative",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`values to match 2`] = `
+<div
+  testClick={[Function]}
+>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+        "position": "relative",
+      }
+    }
+  />
+</div>
+`;

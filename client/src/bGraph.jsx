@@ -61,22 +61,22 @@ class BuyGraph extends React.Component {
         yaxis: {title: "total cost to buy", color: '#66adee'},
         title: 'Buy from station'
       }
-      let click = this.valueClick;
 
-      this.setState({graphData: {'trace': trace, 'layout': layout, 'onClick': click}})
+      this.setState({graphData: {'trace': trace, 'layout': layout }})
     }
   }
 
 
   render() {
     return (
-    <div>
-      <Plot
-      data={this.state.graphData['trace']}
-      layout={this.state.graphData['layout']}
-      onClick={this.state.graphData['onClick']}
-      getCommodityDetails={this.props.getCommodityDetails}/>
-    </div>
+      <div testClick={(string) => string}>
+        <Plot
+        data={this.state.graphData['trace']}
+        layout={this.state.graphData['layout']}
+        onClick={this.valueClick}
+        getCommodityDetails={this.props.getCommodityDetails}/>
+
+      </div>
     )
   }
 }
