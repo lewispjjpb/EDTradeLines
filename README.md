@@ -1,5 +1,4 @@
 # ED TradeLines
-Website: http://18.117.86.44:3001/
 
 This website enables users to view dynamically updated commodity prices (synthetic) at thousands of different markets.
 
